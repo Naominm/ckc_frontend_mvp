@@ -1,18 +1,22 @@
 @import "tailwindcss";
 
-/* ✅ Your custom styles can go below */
 :root {
   --primary-font: "Nunito", sans-serif;
   --line-height: 1.5;
   --primary-color: #f5f4f4;
   --secondary-color: #f9f9f9;
   --accent-color: #e1b52e;
+  --bg-color: #f1eeec;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+body {
+  font-family: var(--primary-font);
 }
 
 a {
