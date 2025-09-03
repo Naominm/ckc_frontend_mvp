@@ -24,6 +24,8 @@ const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
+    setSuccess(null);
     if (!name || !email || !password) {
       setError("All fields are required");
       return;

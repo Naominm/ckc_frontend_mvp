@@ -10,6 +10,7 @@ import {
   Link,
   Alert,
 } from "@mui/material";
+import axios from "axios";
 import FormHeader from "./formHeader";
 
 interface LoginProps {
@@ -20,14 +21,34 @@ const Login: React.FC<LoginProps> = ({ onSwitchToSignup }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    setSuccess(null);
 
     if (!email || !password) {
       setError("All fields are required");
       return;
+    }
+    setLoading(true);
+    try {
+      const response = await axios.post("http://localhost:5000/auth/login", {
+        identifier: email,
+        password,
+      });
+      setSuccess("Login successfully");
+      localStorage.setItem("token", response.data.token);
+    } catch (err: any) {
+      if (err.response && err.response.data?.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("Something went wrong, please try again.");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,6 +73,7 @@ const Login: React.FC<LoginProps> = ({ onSwitchToSignup }) => {
           {error}
         </Alert>
       )}
+      {success && <Alert severity="success">{success}</Alert>}
       <Box
         component="form"
         onSubmit={handleSubmit}
@@ -93,12 +115,13 @@ const Login: React.FC<LoginProps> = ({ onSwitchToSignup }) => {
           variant="contained"
           size="medium"
           fullWidth
+          disabled={loading}
           sx={{
             background: "linear-gradient(to right, #60a5fa, #6d28d9)",
             textTransform: "none",
           }}
         >
-          Login
+          {loading ? "Logging in..." : "Login"}
         </Button>
 
         <Typography variant="body2" align="center" mt={2}>
