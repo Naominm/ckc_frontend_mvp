@@ -3,41 +3,54 @@ import { Alert, Button, Paper, TextField, Typography } from "@mui/material";
 import axios from "axios";
 
 export default function CreateOrder() {
-  const [productId, setProductId] = useState("");
-  const [quantity, SetQuantity] = useState(1);
-  const [message, setMessage] = useState<string | null>(null);
   const [price, setPrice] = useState(0);
+  const [quantity, SetQuantity] = useState(1);
+  const [orderId, setOrderId] = useState<number | null>(null);
+  const [paypalOrderId, setPaypalOrderId] = useState<string | null>(null);
+  const [approvalUrl, setApprovalUrl] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
 
+  const token = localStorage.getItem("token");
   const handleCreateOrder = async () => {
     try {
-      const token = localStorage.getItem("token");
       if (!token) {
         setMessage("you must be logged in to place an order");
         return;
       }
       const response = await axios.post(
         "http://localhost:5000/api/order",
-        {
-          items: [
-            {
-              productId,
-              quantity,
-              price,
-            },
-          ],
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
+        { items: [{ quantity, price }] },
+        { headers: { Authorization: `Bearer ${token}` } },
       );
-      setMessage(`Order created successfully: `);
+      setOrderId(response.data.order.id);
+      setPaypalOrderId(response.data.payment.providerOrderId);
+      setApprovalUrl(response.data.approvalUrl);
+
+      setMessage(`Order created successfully: #${response.data.id}`);
     } catch (err: any) {
       setMessage("Failed to create an order. Try again");
-    } finally {
     }
   };
+  const handleCaptureOrder = async () => {
+    if (!paypalOrderId) {
+      setMessage("No PayPal order to capture");
+      return;
+    }
+
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/order/capture",
+        { paypalOrderId },
+        { headers: { Authorization: `Bearer ${token}` } },
+      );
+
+      setMessage("Order captured successfully ✅");
+      console.log("Capture response:", response.data);
+    } catch (err: any) {
+      setMessage("Failed to capture order. Try again");
+    }
+  };
+
   return (
     <Paper sx={{ p: 3, maxWidth: 400, mx: "auto" }}>
       <Typography variant="h6">Create an order</Typography>
@@ -46,15 +59,6 @@ export default function CreateOrder() {
           {message}
         </Alert>
       )}
-      <TextField
-        fullWidth
-        label="Product ID"
-        value={productId}
-        onChange={(e) => {
-          setProductId(e.target.value);
-        }}
-        margin="normal"
-      />
       <TextField
         fullWidth
         type="number"
@@ -78,6 +82,27 @@ export default function CreateOrder() {
       <Button variant="contained" onClick={handleCreateOrder}>
         Place Order
       </Button>
+
+      {approvalUrl && (
+        <>
+          <Button
+            variant="outlined"
+            sx={{ mt: 0, ml: 2 }}
+            onClick={() => window.open(approvalUrl, "_blank")}
+          >
+            Approve on PayPal
+          </Button>
+
+          <Button
+            variant="contained"
+            color="success"
+            sx={{ mt: 2, ml: 2 }}
+            onClick={handleCaptureOrder}
+          >
+            Capture Order
+          </Button>
+        </>
+      )}
     </Paper>
   );
 }
