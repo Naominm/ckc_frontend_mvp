@@ -1,5 +1,14 @@
 import { useState } from "react";
-import { Alert, Button, Paper, TextField, Typography } from "@mui/material";
+import {
+  Alert,
+  Button,
+  Paper,
+  TextField,
+  Typography,
+  List,
+  ListItem,
+  Divider,
+} from "@mui/material";
 import axios from "axios";
 
 export default function CreateOrder() {
@@ -9,6 +18,7 @@ export default function CreateOrder() {
   const [paypalOrderId, setPaypalOrderId] = useState<string | null>(null);
   const [approvalUrl, setApprovalUrl] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+  const [captureDetails, setCaptureDetails] = useState<any | null>(null);
 
   const token = localStorage.getItem("token");
   const handleCreateOrder = async () => {
@@ -43,7 +53,7 @@ export default function CreateOrder() {
         { paypalOrderId },
         { headers: { Authorization: `Bearer ${token}` } },
       );
-
+      setCaptureDetails(response.data);
       setMessage("Order captured successfully ✅");
       console.log("Capture response:", response.data);
     } catch (err: any) {
@@ -102,6 +112,30 @@ export default function CreateOrder() {
             Capture Order
           </Button>
         </>
+      )}
+      {captureDetails && (
+        <Paper sx={{ mt: 3, p: 2, bgcolor: "#f9f9f9" }}>
+          <Typography variant="subtitle1" gutterBottom>
+            Order Summary
+          </Typography>
+          <Divider sx={{ mb: 2 }} />
+          <Typography>Order ID: {captureDetails.orderId}</Typography>
+          <Typography>
+            Buyer Discount: ${captureDetails.buyerDiscount.toFixed(2)}
+          </Typography>
+
+          <Typography variant="subtitle2" sx={{ mt: 2 }}>
+            Referral Bonuses:
+          </Typography>
+          <List dense>
+            {captureDetails.referralChain.map((ref: any, idx: number) => (
+              <ListItem key={idx}>
+                Level {ref.level + 1}: {ref.name} ({ref.email}) — Bonus: $
+                {ref.bonus.toFixed(2)}
+              </ListItem>
+            ))}
+          </List>
+        </Paper>
       )}
     </Paper>
   );
