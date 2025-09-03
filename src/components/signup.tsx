@@ -21,6 +21,7 @@ const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [referralCode, setReferralCode] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,6 +40,7 @@ const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
         name,
         email,
         password,
+        referralCode,
       });
       setSuccess("signup success");
       localStorage.setItem("token", response.data.token);
@@ -116,6 +118,17 @@ const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
           fullWidth
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        <TextField
+          label="Referral Code optional"
+          type="string"
+          variant="outlined"
+          size="small"
+          fullWidth
+          value={referralCode}
+          onChange={(e) => setReferralCode(e.target.value)}
+          sx={{ fontSize: "small" }}
+          helperText="join the referral club and start earning up"
         />
 
         <Button
