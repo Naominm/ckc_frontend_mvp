@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import FormHeader from "./formHeader";
+import { useNavigate } from "react-router-dom";
 
 interface LoginProps {
   onSwitchToSignup: () => void;
@@ -23,6 +24,7 @@ const Login: React.FC<LoginProps> = ({ onSwitchToSignup }) => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,6 +43,7 @@ const Login: React.FC<LoginProps> = ({ onSwitchToSignup }) => {
       });
       setSuccess("Login successfully");
       localStorage.setItem("token", response.data.token);
+      navigate("/orders/new");
     } catch (err: any) {
       if (err.response && err.response.data?.message) {
         setError(err.response.data.message);
