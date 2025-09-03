@@ -4,13 +4,13 @@ import {
   TextField,
   Button,
   Typography,
-  Avatar,
   Paper,
   FormControlLabel,
   Checkbox,
   Link,
+  Alert,
 } from "@mui/material";
-import image from "../assets/logo.png";
+import FormHeader from "./formHeader";
 
 interface LoginProps {
   onSwitchToSignup: () => void;
@@ -19,17 +19,23 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = ({ onSwitchToSignup }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ email, password });
+    setError(null);
+
+    if (!email || !password) {
+      setError("All fields are required");
+      return;
+    }
   };
 
   return (
     <Paper
       elevation={3}
       sx={{
-        width: "100%",
+        width: "80%",
         p: 4,
         borderRadius: 3,
         display: "flex",
@@ -37,27 +43,15 @@ const Login: React.FC<LoginProps> = ({ onSwitchToSignup }) => {
         gap: 3,
       }}
     >
-      <Box display="flex" flexDirection="column" alignItems="center" gap={1}>
-        <Box
-          component="img"
-          src={image}
-          alt="logo"
-          sx={{
-            width: 50,
-            height: 50,
-            borderRadius: "50%",
-            objectFit: "cover",
-            p: 1,
-            boxShadow: 2,
-          }}
-        />
-        <Typography variant="h5" fontWeight="bold">
-          Welcome Back
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Sign in to your Chakancha account
-        </Typography>
-      </Box>
+      <FormHeader
+        title="welcome Back"
+        subtitle=" Sign in to your Chakancha account"
+      />
+      {error && (
+        <Alert severity="error" sx={{ fontSize: "small" }}>
+          {error}
+        </Alert>
+      )}
       <Box
         component="form"
         onSubmit={handleSubmit}
@@ -71,7 +65,6 @@ const Login: React.FC<LoginProps> = ({ onSwitchToSignup }) => {
           variant="outlined"
           size="small"
           fullWidth
-          required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -82,7 +75,6 @@ const Login: React.FC<LoginProps> = ({ onSwitchToSignup }) => {
           variant="outlined"
           size="small"
           fullWidth
-          required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
