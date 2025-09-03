@@ -20,6 +20,7 @@ const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,7 +38,7 @@ const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
         email,
         password,
       });
-      console.log("signup success", response.data);
+      setSuccess("signup success");
       localStorage.setItem("token", response.data.token);
       setName("");
       setEmail("");
@@ -65,6 +66,7 @@ const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
         Sign Up
       </Typography>
       {error && <Alert severity="error">{error}</Alert>}
+      {success && <Alert severity="success">{success}</Alert>}
 
       <Box
         component="form"
