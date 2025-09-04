@@ -62,7 +62,7 @@ export default function CreateOrder() {
   };
 
   return (
-    <Paper sx={{ p: 3, maxWidth: 400, mx: "auto" }}>
+    <Paper sx={{ p: 3, maxWidth: 400, mx: "auto", mt: 5 }}>
       <Typography variant="h6">Create an order</Typography>
       {message && (
         <Alert severity="info" sx={{ mt: 2, mb: 2 }}>
