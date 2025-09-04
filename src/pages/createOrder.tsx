@@ -104,7 +104,7 @@ export default function CreateOrder() {
           </Button>
         </>
       )}
-      {captureDetails && (
+      {/* {captureDetails && (
         <Paper sx={{ mt: 3, p: 2, bgcolor: "#f9f9f9" }}>
           <Typography variant="subtitle1" gutterBottom>
             Order Summary
@@ -127,7 +127,7 @@ export default function CreateOrder() {
             ))}
           </List>
         </Paper>
-      )}
+      )} */}
     </Paper>
   );
 }
