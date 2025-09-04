@@ -45,7 +45,7 @@ export default function Profile() {
     setMessage("Referral code copied");
   };
   return (
-    <Paper sx={{ p: 3, maxWidth: 400, mx: "auto" }}>
+    <Paper sx={{ p: 3, maxWidth: 400, mx: "auto", mt: 5 }}>
       {name && (
         <Typography variant="body1">
           Welcome back, <strong>{name}</strong> 👋
@@ -74,6 +74,15 @@ export default function Profile() {
         }}
         sx={{ mt: 2 }}
       />
+      <Button
+        variant="contained"
+        sx={{ mt: 3 }}
+        onClick={() => {
+          navigate("/orders/new");
+        }}
+      >
+        make an order
+      </Button>
     </Paper>
   );
 }
