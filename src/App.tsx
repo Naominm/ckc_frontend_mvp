@@ -7,6 +7,7 @@ import {
 import AuthPage from "./components/auth";
 import CreateOrder from "./pages/createOrder";
 import Profile from "./pages/profile";
+import PayPalSuccess from "./pages/paypalSuccess";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/orders/new" element={<CreateOrder />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/paypal/success" element={<PayPalSuccess />} />
         </Routes>
       </Router>
     </>

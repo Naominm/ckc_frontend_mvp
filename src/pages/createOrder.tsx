@@ -102,15 +102,6 @@ export default function CreateOrder() {
           >
             Approve on PayPal
           </Button>
-
-          <Button
-            variant="contained"
-            color="success"
-            sx={{ mt: 2, ml: 2 }}
-            onClick={handleCaptureOrder}
-          >
-            Capture Order
-          </Button>
         </>
       )}
       {captureDetails && (
