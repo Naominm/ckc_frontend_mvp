@@ -43,7 +43,7 @@ const Login: React.FC<LoginProps> = ({ onSwitchToSignup }) => {
       });
       setSuccess("Login successfully");
       localStorage.setItem("token", response.data.token);
-      navigate("/orders/new");
+      navigate("/profile");
     } catch (err: any) {
       if (err.response && err.response.data?.message) {
         setError(err.response.data.message);
