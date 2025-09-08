@@ -73,6 +73,12 @@ export default function PayPalSuccess() {
           <Typography>
             Buyer Discount: ${captureDetails.buyerDiscount.toFixed(2)}
           </Typography>
+          <Typography>
+            Order Amount: $
+            {captureDetails?.orderAmount
+              ? Number(captureDetails.orderAmount).toFixed(2)
+              : "N/A"}
+          </Typography>
 
           <Typography variant="subtitle2" sx={{ mt: 2 }}>
             Referral Bonuses:
