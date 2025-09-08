@@ -5,8 +5,11 @@ import {
   Typography,
   CircularProgress,
   Alert,
-  List,
-  ListItem,
+  Table,
+  TableCell,
+  TableBody,
+  TableHead,
+  TableRow,
   Divider,
 } from "@mui/material";
 
@@ -83,18 +86,30 @@ export default function PayPalSuccess() {
           <Typography variant="subtitle2" sx={{ mt: 2 }}>
             Referral Bonuses:
           </Typography>
-          <List dense>
-            {captureDetails.referralChain.length > 0 ? (
-              captureDetails.referralChain.map((ref: any, idx: number) => (
-                <ListItem key={idx}>
-                  Level {ref.level + 1}: {ref.name} ({ref.email}) — Bonus: $
-                  {ref.bonus.toFixed(2)}
-                </ListItem>
-              ))
-            ) : (
-              <ListItem>No referral bonuses</ListItem>
-            )}
-          </List>
+          {captureDetails.referralChain.length > 0 ? (
+            <Table size="small">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Level</TableCell>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Email</TableCell>
+                  <TableCell align="right">Bonus ($)</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {captureDetails.referralChain.map((ref: any, idx: number) => (
+                  <TableRow key={idx}>
+                    <TableCell>{ref.level + 1}</TableCell>
+                    <TableCell>{ref.name}</TableCell>
+                    <TableCell>{ref.email}</TableCell>
+                    <TableCell align="right">{ref.bonus.toFixed(2)}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          ) : (
+            <Typography>No referral bonuses</Typography>
+          )}
         </>
       )}
     </Paper>
