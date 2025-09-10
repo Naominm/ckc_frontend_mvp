@@ -73,6 +73,7 @@ export default function PayPalSuccess() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        backgroundColor: "var[--primary-color]",
       }}
     >
       {/* {message && (
@@ -92,20 +93,21 @@ export default function PayPalSuccess() {
               mb: 5,
             }}
           >
-            Your Payment has been completed successfully <br />
+            Your Payment has been completed successfully. <br />
             <br />
           </Typography>
           <Typography
             variant="body2"
-            sx={{ borderBottom: "1px solid #e0e0e0", mt: 5 }}
+            sx={{ mt: 2, width: "100%", textAlign: "center" }}
           >
             Thank you for your purchase! You can view order details in{" "}
             <b>Purchase History under MyPage order Number</b>{" "}
-            {captureDetails.orderId}
+            {captureDetails.orderId} <br />
+            <br />
           </Typography>
           <Box
             component="div"
-            sx={{ display: "flex", flexDirection: "column", mt: 5 }}
+            sx={{ display: "flex", flexDirection: "column", mt: 5, gap: 2 }}
           >
             <Button variant="outlined">View order Details</Button>
             <Button variant="outlined">Home page</Button>
