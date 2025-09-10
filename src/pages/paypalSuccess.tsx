@@ -11,6 +11,8 @@ import {
   TableHead,
   TableRow,
   Divider,
+  Box,
+  Button,
 } from "@mui/material";
 
 export default function PayPalSuccess() {
@@ -92,6 +94,13 @@ export default function PayPalSuccess() {
             <b>Purchase History under MyPage order Number</b>{" "}
             {captureDetails.orderId}
           </Typography>
+          <Box
+            component="div"
+            sx={{ display: "flex", flexDirection: "column" }}
+          >
+            <Button variant="outlined">View order Details</Button>
+            <Button variant="outlined">Home page</Button>
+          </Box>
           <Divider sx={{ my: 2 }} />
           <Typography>Order ID: {captureDetails.orderId}</Typography>
           <Typography>
