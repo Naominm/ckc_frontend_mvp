@@ -1,5 +1,6 @@
 import { Box, Button } from "@mui/material";
 import LogoImage from "../assets/Group.svg";
+import { NavLink } from "react-router-dom";
 
 export default function NavBar() {
   return (
@@ -18,9 +19,9 @@ export default function NavBar() {
         gap={10}
         sx={{ textTransform: "uppercase", ml: 35, fontSize: "0.6rem" }}
       >
-        <h1>About</h1>
-        <h1>Product</h1>
-        <h1>Recipe</h1>
+        <NavLink to="/about">About</NavLink>
+        <NavLink to="/product">Product</NavLink>
+        <NavLink to="/about">Recipe</NavLink>
       </Box>
       <Button
         variant="text"

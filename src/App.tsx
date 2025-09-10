@@ -14,15 +14,13 @@ export default function App() {
   return (
     <>
       <NavBar />
-      <Router>
-        <Routes>
-          <Route path="/" element={<Navigate to="/auth" replace />} />
-          <Route path="/auth" element={<AuthPage />} />
-          <Route path="/orders/new" element={<CreateOrder />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/paypal/success" element={<PayPalSuccess />} />
-        </Routes>
-      </Router>
+      <Routes>
+        <Route path="/" element={<Navigate to="/auth" replace />} />
+        <Route path="/auth" element={<AuthPage />} />
+        <Route path="/orders/new" element={<CreateOrder />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/paypal/success" element={<PayPalSuccess />} />
+      </Routes>
     </>
   );
 }
