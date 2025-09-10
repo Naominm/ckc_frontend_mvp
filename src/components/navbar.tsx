@@ -17,7 +17,12 @@ export default function NavBar() {
         display="flex"
         alignItems="center"
         gap={10}
-        sx={{ textTransform: "uppercase", ml: 35, fontSize: "0.6rem" }}
+        sx={{
+          textTransform: "uppercase",
+          ml: 35,
+          fontSize: "0.6rem",
+          fontWeight: "bold",
+        }}
       >
         <NavLink to="/about">About</NavLink>
         <NavLink to="/product">Product</NavLink>

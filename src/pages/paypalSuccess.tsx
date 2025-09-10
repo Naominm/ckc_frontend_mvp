@@ -61,7 +61,18 @@ export default function PayPalSuccess() {
   }
 
   return (
-    <Paper sx={{ p: 3, maxWidth: 500, mx: "auto", mt: 5 }}>
+    <Paper
+      elevation={1}
+      sx={{
+        p: 3,
+        maxWidth: "full",
+        mx: "auto",
+        mt: 5,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       {message && (
         <Alert severity={captureDetails ? "success" : "error"} sx={{ mb: 2 }}>
           {message}
@@ -70,7 +81,17 @@ export default function PayPalSuccess() {
 
       {captureDetails && (
         <>
-          <Typography variant="h6">Order Summary</Typography>
+          <Typography variant="h6" sx={{ borderBottom: "1px solid #e0e0e0" }}>
+            Your Payment has been completed successfully
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{ borderBottom: "1px solid #e0e0e0" }}
+          >
+            Thank you for your purchase! You can view order details in{" "}
+            <b>Purchase History under MyPage order Number</b>{" "}
+            {captureDetails.orderId}
+          </Typography>
           <Divider sx={{ my: 2 }} />
           <Typography>Order ID: {captureDetails.orderId}</Typography>
           <Typography>
