@@ -64,7 +64,7 @@ export default function PayPalSuccess() {
 
   return (
     <Paper
-      elevation={1}
+      elevation={0}
       sx={{
         p: 3,
         maxWidth: "full",
@@ -75,20 +75,29 @@ export default function PayPalSuccess() {
         alignItems: "center",
       }}
     >
-      {message && (
+      {/* {message && (
         <Alert severity={captureDetails ? "success" : "error"} sx={{ mb: 2 }}>
           {message}
         </Alert>
-      )}
+      )} */}
 
       {captureDetails && (
         <>
-          <Typography variant="h6" sx={{ borderBottom: "1px solid #e0e0e0" }}>
-            Your Payment has been completed successfully
+          <Typography
+            variant="h6"
+            sx={{
+              width: "100%",
+              textAlign: "center",
+              borderBottom: "1px solid #e0e0e0",
+              mb: 5,
+            }}
+          >
+            Your Payment has been completed successfully <br />
+            <br />
           </Typography>
           <Typography
             variant="body2"
-            sx={{ borderBottom: "1px solid #e0e0e0" }}
+            sx={{ borderBottom: "1px solid #e0e0e0", mt: 5 }}
           >
             Thank you for your purchase! You can view order details in{" "}
             <b>Purchase History under MyPage order Number</b>{" "}
@@ -96,12 +105,12 @@ export default function PayPalSuccess() {
           </Typography>
           <Box
             component="div"
-            sx={{ display: "flex", flexDirection: "column" }}
+            sx={{ display: "flex", flexDirection: "column", mt: 5 }}
           >
             <Button variant="outlined">View order Details</Button>
             <Button variant="outlined">Home page</Button>
           </Box>
-          <Divider sx={{ my: 2 }} />
+          {/* <Divider sx={{ my: 2 }} />
           <Typography>Order ID: {captureDetails.orderId}</Typography>
           <Typography>
             Buyer Discount: ${captureDetails.buyerDiscount.toFixed(2)}
@@ -111,10 +120,10 @@ export default function PayPalSuccess() {
             {captureDetails?.orderAmount
               ? Number(captureDetails.orderAmount).toFixed(2)
               : "N/A"}
-          </Typography>
+          </Typography> */}
 
-          <Typography variant="subtitle2" sx={{ mt: 2 }}>
-            Referral Bonuses:
+          <Typography variant="subtitle2" sx={{ mt: 5 }}>
+            ✅ Your purchase has provided credit ### Referrers
           </Typography>
           {captureDetails.referralChain.length > 0 ? (
             <Table size="small">
@@ -122,7 +131,6 @@ export default function PayPalSuccess() {
                 <TableRow>
                   <TableCell>Level</TableCell>
                   <TableCell>Name</TableCell>
-                  <TableCell>Email</TableCell>
                   <TableCell align="right">Bonus ($)</TableCell>
                 </TableRow>
               </TableHead>
@@ -131,7 +139,6 @@ export default function PayPalSuccess() {
                   <TableRow key={idx}>
                     <TableCell>{ref.level + 1}</TableCell>
                     <TableCell>{ref.name}</TableCell>
-                    <TableCell>{ref.email}</TableCell>
                     <TableCell align="right">{ref.bonus.toFixed(2)}</TableCell>
                   </TableRow>
                 ))}
@@ -142,6 +149,7 @@ export default function PayPalSuccess() {
           )}
         </>
       )}
+      <Box sx={{ borderBottom: "1px solid #e0e0e0" }}></Box>
     </Paper>
   );
 }
