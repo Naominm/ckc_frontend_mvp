@@ -4,20 +4,20 @@ import {
   Paper,
   Typography,
   CircularProgress,
-  Alert,
   Table,
   TableCell,
   TableBody,
   TableHead,
   TableRow,
-  Divider,
   Box,
   Button,
 } from "@mui/material";
 
+import SuccessCard from "../components/successCard";
+
 export default function PayPalSuccess() {
   const [loading, setLoading] = useState(true);
-  const [message, setMessage] = useState<string | null>(null);
+  const [_message, setMessage] = useState<string | null>(null);
   const [captureDetails, setCaptureDetails] = useState<any | null>(null);
 
   useEffect(() => {
@@ -119,19 +119,9 @@ export default function PayPalSuccess() {
               </Box>
             </Box>
           ) : (
-            // ✅ Normal Payment Success Page
+            // Normal Payment Success Page
             <>
-              <Typography
-                variant="h6"
-                sx={{
-                  width: "100%",
-                  textAlign: "center",
-                  borderBottom: "1px solid #e0e0e0",
-                  mb: 2,
-                }}
-              >
-                Your Payment has been completed successfully. <br />
-              </Typography>
+              <SuccessCard />
               <Typography
                 variant="body2"
                 sx={{ mt: 2, width: "100%", textAlign: "center" }}
@@ -140,7 +130,6 @@ export default function PayPalSuccess() {
                 <b>Purchase History under MyPage order Number</b>{" "}
                 {captureDetails.orderId}
               </Typography>
-
               <Box
                 component="div"
                 sx={{ display: "flex", flexDirection: "column", mt: 2, gap: 2 }}
