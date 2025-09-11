@@ -1,4 +1,11 @@
-import { Paper, Typography, Button, TextField, Alert } from "@mui/material";
+import {
+  Paper,
+  Typography,
+  Button,
+  TextField,
+  Alert,
+  Box,
+} from "@mui/material";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -45,35 +52,73 @@ export default function Profile() {
     setMessage("Referral code copied");
   };
   return (
-    <Paper sx={{ p: 3, maxWidth: 400, mx: "auto", mt: 5 }}>
-      {name && (
+    <Paper elevation={0} sx={{ p: 3, Width: "100%", mx: "auto" }}>
+      <Box
+        component="div"
+        sx={{ display: "flex", alignItems: "center", justifyContent: "right" }}
+      >
+        <Typography variant="h4" fontFamily="var(--primary-font)">
+          My Page
+        </Typography>
+      </Box>
+      <Box
+        component="div"
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          gap: 4,
+          borderBottom: "var(--primary-color)",
+          mt: 2,
+        }}
+      >
+        <Button
+          variant="contained"
+          sx={{ backgroundColor: "#000", color: "#fff" }}
+        >
+          Referral
+        </Button>
+        <Button
+          variant="contained"
+          sx={{ backgroundColor: "#fff", color: "#000" }}
+        >
+          Purchase History
+        </Button>
+        <Button
+          variant="contained"
+          sx={{ backgroundColor: "#fff", color: "#000" }}
+        >
+          Personal Details
+        </Button>
+      </Box>
+      {/* {name && (
         <Typography variant="body1">
           Welcome back, <strong>{name}</strong> 👋
         </Typography>
-      )}
+      )} */}
 
-      {email && (
+      {/* {email && (
         <Typography variant="body2" sx={{ mb: 2 }}>
           {email}
         </Typography>
-      )}
+      )} */}
 
       {message && <Alert severity="info">{message}</Alert>}
 
-      <TextField
-        label="Your Referral Code"
-        value={referralCode || ""}
-        fullWidth
-        InputProps={{
-          readOnly: true,
-          endAdornment: (
-            <Button onClick={copyReferralCode} variant="outlined">
-              Copy
-            </Button>
-          ),
-        }}
-        sx={{ mt: 2 }}
-      />
+      <Box
+        component="div"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        sx={{ gap: 4, mt: 4 }}
+      >
+        <Typography variant="body2">Referral Code</Typography>
+        <Typography variant="h6" sx={{ color: "var(--text-color)" }}>
+          {referralCode || ""}
+        </Typography>
+        <Button size="small" onClick={copyReferralCode} variant="text">
+          Copy
+        </Button>
+      </Box>
       <Button
         variant="contained"
         sx={{ mt: 3 }}
