@@ -88,22 +88,63 @@ export default function PayPalSuccess() {
       {captureDetails && (
         <>
           {captureDetails.isFirstPayment ? (
-            <Box textAlign="center">
-              <Typography variant="h5" gutterBottom>
-                🎉 Congratulations on your first purchase!
-              </Typography>
-              <Typography variant="body1">
-                Here’s your unique referral code:
+            <Box
+              textAlign="center"
+              sx={{
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Typography sx={{ mb: 2 }}>
+                <SuccessCard />
               </Typography>
               <Typography
-                variant="h4"
-                sx={{ fontWeight: "bold", mt: 2, color: "primary.main" }}
+                variant="body2"
+                sx={{ mt: 2, width: "100%", textAlign: "center" }}
               >
-                {captureDetails.referralCode}
+                Thank you for your purchase! You can view order details in{" "}
+                <b>Purchase History under MyPage order Number</b>{" "}
+                {captureDetails.orderId}
               </Typography>
-              <Typography variant="body2" sx={{ mt: 2 }}>
-                Share this code with friends to start earning rewards.
+              <Typography variant="h5" sx={{ fontWeight: "bold", mt: 2 }}>
+                You have completed your first purchase Congratulations !
               </Typography>
+              <Typography variant="body1">
+                We are exited to give you your referral code
+              </Typography>
+              <Box
+                component="div"
+                sx={{
+                  backgroundColor: "var(--table-bg)",
+                  fontWeight: "bold",
+                  mt: 2,
+                  width: "50%",
+                  borderRadius: "10px",
+                  padding: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Typography variant="body1">
+                  Your referral code has been successfully assigned
+                </Typography>
+                <Typography
+                  variant="h4"
+                  sx={{ fontWeight: "bold", mt: 2, color: "var(--text-color)" }}
+                >
+                  {captureDetails.referralCode}
+                </Typography>
+                <Typography variant="body2" sx={{ mt: 2 }}>
+                  Share this code to invite others and receive bonus rewards.
+                  Your referral code is available in your myPage.
+                </Typography>
+                <Button variant="contained" color="primary" sx={{ mt: 2 }}>
+                  Copy Code
+                </Button>
+              </Box>
               <Box
                 sx={{
                   mt: 3,
@@ -112,10 +153,8 @@ export default function PayPalSuccess() {
                   justifyContent: "center",
                 }}
               >
-                <Button variant="contained" color="primary">
-                  Copy Code
-                </Button>
-                <Button variant="outlined">Go to Dashboard</Button>
+                <Button variant="outlined">View Order details</Button>
+                <Button variant="outlined">Home page</Button>
               </Box>
             </Box>
           ) : (

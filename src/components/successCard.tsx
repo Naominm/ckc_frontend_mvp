@@ -41,6 +41,7 @@ export default function SuccessCard() {
         }}
       >
         Your Payment has been completed successfully. <br />
+        <br />
       </Typography>
     </Box>
   );
