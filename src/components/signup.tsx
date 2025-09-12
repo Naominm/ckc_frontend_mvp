@@ -22,6 +22,7 @@ const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [referralCode, setReferralCode] = useState("");
+  const [nickname, setNickname] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -99,6 +100,15 @@ const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </Box>
+        <TextField
+          label="nickname"
+          type="text"
+          variant="outlined"
+          size="small"
+          fullWidth
+          value={nickname}
+          onChange={(e) => setNickname(e.target.value)}
+        />
 
         <TextField
           label="Password"
