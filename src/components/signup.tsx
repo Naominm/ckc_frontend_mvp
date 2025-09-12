@@ -40,8 +40,9 @@ const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
       const response = await axios.post("http://localhost:5000/auth/signup", {
         name,
         email,
+        nickname,
         password,
-        referralCode,
+        referred_by: referralCode,
       });
       setSuccess("signup success");
       localStorage.setItem("token", response.data.token);
