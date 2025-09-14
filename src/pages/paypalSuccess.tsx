@@ -178,7 +178,7 @@ export default function PayPalSuccess() {
               </Box>
 
               <Typography variant="subtitle2" sx={{ mt: 5 }}>
-                ✅ Your purchase has provided credit to referrers
+                ✅ Credit Earned from your referrals
               </Typography>
               {Array.isArray(captureDetails.referralChain) &&
               captureDetails.referralChain.length > 0 ? (
