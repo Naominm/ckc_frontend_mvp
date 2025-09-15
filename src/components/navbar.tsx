@@ -1,8 +1,9 @@
 import { Box, Button } from "@mui/material";
 import LogoImage from "../assets/Group.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function NavBar() {
+  const navigate = useNavigate();
   return (
     <Box
       component="nav"
@@ -11,7 +12,13 @@ export default function NavBar() {
       padding="8px 16px"
       sx={{ borderBottom: "1px solid #e0e0e0" }}
     >
-      <Box component="img" src={LogoImage} alt="logo" sx={{ height: 10 }} />
+      <Box
+        component="img"
+        src={LogoImage}
+        alt="logo"
+        sx={{ height: 10, cursor: "pointer" }}
+        onClick={() => navigate("/home")}
+      />
       <Box
         component="div"
         display="flex"
@@ -25,8 +32,8 @@ export default function NavBar() {
         }}
       >
         <NavLink to="/about">About</NavLink>
-        <NavLink to="/product">Product</NavLink>
-        <NavLink to="/about">Recipe</NavLink>
+        <NavLink to="/order">order</NavLink>
+        <NavLink to="/profile">myPage</NavLink>
       </Box>
       <Button
         variant="text"
