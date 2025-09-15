@@ -50,6 +50,8 @@ const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
       setEmail("");
       setPassword("");
       setConfirmPassword("");
+      setReferralCode("");
+      setNickname("");
     } catch (err: any) {
       setError(err.response?.data?.message || "something went wrong");
     }

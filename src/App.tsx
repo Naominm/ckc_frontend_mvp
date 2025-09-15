@@ -1,9 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import AuthPage from "./components/auth";
 import CreateOrder from "./pages/createOrder";
 import Profile from "./pages/profile";
@@ -12,10 +7,15 @@ import NavBar from "./components/navbar";
 import Wallet from "./pages/wallet";
 import HomePage from "./pages/homePage";
 
-export default function App() {
+function AppContent() {
+  const location = useLocation();
+
+  // Hide NavBar on /auth
+  const hideNav = location.pathname === "/auth";
+
   return (
     <>
-      <NavBar />
+      {!hideNav && <NavBar />}
       <Routes>
         <Route path="/" element={<Navigate to="/auth" replace />} />
         <Route path="/auth" element={<AuthPage />} />
@@ -28,3 +28,5 @@ export default function App() {
     </>
   );
 }
+
+export default AppContent;

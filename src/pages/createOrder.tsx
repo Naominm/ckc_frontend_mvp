@@ -27,7 +27,7 @@ export default function CreateOrder() {
       setPaypalOrderId(response.data.payment.providerOrderId);
       setApprovalUrl(response.data.approvalUrl);
 
-      setMessage(`Order created successfully: #${response.data.id}`);
+      setMessage(`Order created successfully: #${response.data.order.id}`);
     } catch (err: any) {
       setMessage("Failed to create an order. Try again");
     }
