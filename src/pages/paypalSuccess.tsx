@@ -178,7 +178,7 @@ export default function PayPalSuccess() {
               </Box>
 
               <Typography variant="subtitle2" sx={{ mt: 5 }}>
-                ✅ Credit Earned from your referrals
+                Bonuses distributed to your uplines (when you buy)
               </Typography>
               {Array.isArray(captureDetails.referralChain) &&
               captureDetails.referralChain.length > 0 ? (
@@ -193,7 +193,7 @@ export default function PayPalSuccess() {
                 >
                   <TableHead>
                     <TableRow>
-                      <TableCell>Referrals</TableCell>
+                      <TableCell>Upline</TableCell>
                       <TableCell>Level</TableCell>
                       <TableCell align="right">Bonus ($)</TableCell>
                     </TableRow>
@@ -203,10 +203,47 @@ export default function PayPalSuccess() {
                       (ref: any, idx: number) => (
                         <TableRow key={idx}>
                           <TableCell>{ref.name}</TableCell>
-                          <TableCell>{ref.level + 1}</TableCell>
+                          <TableCell>{ref.level}</TableCell>
                           <TableCell align="right">
                             {ref.bonus.toFixed(2)}
                           </TableCell>
+                        </TableRow>
+                      ),
+                    )}
+                  </TableBody>
+                </Table>
+              ) : (
+                <Typography>No bonuses distributed</Typography>
+              )}
+
+              <Typography variant="subtitle2" sx={{ mt: 5 }}>
+                Credit Earned from your referrals
+              </Typography>
+              {Array.isArray(captureDetails.myRewardsFromChildren) &&
+              captureDetails.myRewardsFromChildren.length > 0 ? (
+                <Table
+                  size="small"
+                  style={{
+                    backgroundColor: "var(--table-bg)",
+                    width: "50%",
+                    marginTop: 2,
+                    borderRadius: "10px",
+                  }}
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Referral</TableCell>
+                      <TableCell>Level</TableCell>
+                      <TableCell align="right">rate</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {captureDetails.myRewardsFromChildren.map(
+                      (ref: any, idx: number) => (
+                        <TableRow key={idx}>
+                          <TableCell>{ref.childName}</TableCell>
+                          <TableCell>{ref.level}</TableCell>
+                          <TableCell align="right">{ref.rate}</TableCell>
                         </TableRow>
                       ),
                     )}

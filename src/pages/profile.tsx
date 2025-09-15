@@ -10,6 +10,12 @@ interface ReferralNode {
   children?: ReferralNode[];
 }
 
+interface LevelEarning {
+  level: number;
+  total: number;
+  sentence: string;
+}
+
 function ReferralTree({ node }: { node: ReferralNode }) {
   return (
     <Box sx={{ textAlign: "center", mt: 2 }}>
@@ -99,6 +105,10 @@ export default function Profile() {
   const [message, setMessage] = useState<string | null>(null);
   const [referralTree, setReferralTree] = useState<ReferralNode | null>(null);
 
+  const [levelEarnings, setLevelEarnings] = useState<LevelEarning[]>([]);
+  const [totalEarnings, setTotalEarnings] = useState<number>(0);
+  const [totalSentence, setTotalSentence] = useState<string>("");
+
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
@@ -114,6 +124,7 @@ export default function Profile() {
         return;
       }
       try {
+        // Profile
         const response = await axios.get("http://localhost:5000/api/user/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -121,11 +132,20 @@ export default function Profile() {
         setEmail(response.data.email);
         setReferralCode(response.data.referral_code);
 
+        // Tree
         const treeRes = await axios.get(
           "http://localhost:5000/api/referrals/tree",
           { headers: { Authorization: `Bearer ${token}` } },
         );
         setReferralTree(normalizeNode(treeRes.data));
+
+        // Earnings
+        const earningsRes = await axios.get(
+          "http://localhost:5000/api/rewards/levels",
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
+        setLevelEarnings(earningsRes.data.levels);
+        setTotalEarnings(earningsRes.data.total);
       } catch (err: any) {
         if (err.response?.status === 401) {
           localStorage.removeItem("token");
@@ -154,15 +174,9 @@ export default function Profile() {
       >
         <Typography variant="h4">My Page</Typography>
       </Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          gap: 4,
-          borderBottom: "var(--primary-color)",
-          mt: 2,
-        }}
-      >
+
+      {/* Navigation */}
+      <Box sx={{ display: "flex", justifyContent: "center", gap: 4, mt: 2 }}>
         <Button
           variant="contained"
           sx={{ backgroundColor: "#000", color: "#fff" }}
@@ -171,6 +185,7 @@ export default function Profile() {
         </Button>
         <Button
           variant="contained"
+          onClick={() => navigate("/wallet")}
           sx={{ backgroundColor: "#fff", color: "#000" }}
         >
           Purchase History
@@ -182,7 +197,10 @@ export default function Profile() {
           Personal Details
         </Button>
       </Box>
+
       {message && <Alert severity="info">{message}</Alert>}
+
+      {/* Referral code */}
       <Box
         display="flex"
         alignItems="center"
@@ -197,18 +215,21 @@ export default function Profile() {
           Copy
         </Button>
       </Box>
-      6
+
+      {/* Credit */}
       <Box
         display="flex"
         alignItems="center"
         justifyContent="center"
         sx={{ gap: 2, mt: 2 }}
       >
-        <Typography variant="body2">Your Credit</Typography>
+        <Typography variant="body2">Your Total Credit</Typography>
         <Typography variant="h6" sx={{ color: "var(--text-color)" }}>
-          ###
+          $ {totalEarnings}
         </Typography>
       </Box>
+
+      {/* Order */}
       <Button
         variant="contained"
         onClick={() => navigate("/orders/new")}
@@ -216,24 +237,23 @@ export default function Profile() {
       >
         make an order
       </Button>
+
+      {/* Transfer */}
       <Box
         display="flex"
         alignItems="center"
         justifyContent="center"
-        sx={{ mt: 2, borderRadius: "20px" }}
+        sx={{ mt: 2 }}
       >
         <Button
           variant="contained"
-          sx={{
-            color: "#000",
-            backgroundColor: "#fff",
-            borderBottom: "var(--primary-color)",
-            ml: 10,
-          }}
+          sx={{ color: "#000", backgroundColor: "#fff", ml: 10 }}
         >
           Transfer <ArrowDropDown />
         </Button>
       </Box>
+
+      {/* Referral Tree */}
       <Typography variant="h6" sx={{ mt: 3 }}>
         Referral tree
       </Typography>
@@ -242,6 +262,24 @@ export default function Profile() {
       ) : (
         <Typography variant="body2">No referrals yet.</Typography>
       )}
+
+      {/* Earnings per level */}
+      <Typography variant="h6" sx={{ mt: 4 }}>
+        Earnings by Level
+      </Typography>
+
+      {levelEarnings.map((lvl) => (
+        <Box key={lvl.level} sx={{ mt: 1 }}>
+          <Typography variant="body2" sx={{ fontWeight: "bold" }}>
+            {lvl.sentence}
+          </Typography>
+        </Box>
+      ))}
+
+      {/* Grand total */}
+      <Typography variant="body1" sx={{ mt: 2, fontWeight: "bold" }}>
+        {totalSentence}
+      </Typography>
     </Paper>
   );
 }

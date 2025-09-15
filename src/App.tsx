@@ -9,6 +9,8 @@ import CreateOrder from "./pages/createOrder";
 import Profile from "./pages/profile";
 import PayPalSuccess from "./pages/paypalSuccess";
 import NavBar from "./components/navbar";
+import Wallet from "./pages/wallet";
+import HomePage from "./pages/homePage";
 
 export default function App() {
   return (
@@ -20,6 +22,8 @@ export default function App() {
         <Route path="/orders/new" element={<CreateOrder />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/paypal/success" element={<PayPalSuccess />} />
+        <Route path="/wallet" element={<Wallet />} />
+        <Route path="/home" element={<HomePage />} />
       </Routes>
     </>
   );
