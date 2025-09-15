@@ -44,6 +44,7 @@ export default function NavBar() {
           fontSize: "0.6rem",
           color: "black",
         }}
+        onClick={() => navigate("/auth")}
       >
         Login
       </Button>

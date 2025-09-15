@@ -196,11 +196,12 @@ export default function Profile() {
         >
           Personal Details
         </Button>
+        <Button variant="contained" onClick={() => navigate("/orders/new")}>
+          make an order
+        </Button>
       </Box>
 
       {message && <Alert severity="info">{message}</Alert>}
-
-      {/* Referral code */}
       <Box
         display="flex"
         alignItems="center"
@@ -229,15 +230,6 @@ export default function Profile() {
         </Typography>
       </Box>
 
-      {/* Order */}
-      <Button
-        variant="contained"
-        onClick={() => navigate("/orders/new")}
-        sx={{ mt: 2 }}
-      >
-        make an order
-      </Button>
-
       {/* Transfer */}
       <Box
         display="flex"
@@ -253,7 +245,6 @@ export default function Profile() {
         </Button>
       </Box>
 
-      {/* Referral Tree */}
       <Typography variant="h6" sx={{ mt: 3 }}>
         Referral tree
       </Typography>
