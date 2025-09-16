@@ -101,13 +101,13 @@ function ReferralTree({ node }: { node: ReferralNode }) {
 export default function Profile() {
   const [referralCode, setReferralCode] = useState<string | null>(null);
   const [, setName] = useState<string | null>(null);
-  const [ ,setEmail] = useState<string | null>(null);
+  const [, setEmail] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [referralTree, setReferralTree] = useState<ReferralNode | null>(null);
 
   const [levelEarnings, setLevelEarnings] = useState<LevelEarning[]>([]);
   const [totalEarnings, setTotalEarnings] = useState<number>(0);
-  const [totalSentence,] = useState<string>("");
+  const [totalSentence] = useState<string>("");
 
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -116,6 +116,7 @@ export default function Profile() {
     nickname: apiNode.nickname || apiNode.name || "Unknown",
     children: apiNode.children ? apiNode.children.map(normalizeNode) : [],
   });
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -125,7 +126,7 @@ export default function Profile() {
       }
       try {
         // Profile
-        const response = await axios.get("http://localhost:5000/api/user/me", {
+        const response = await axios.get(`${API_URL}/api/user/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setName(response.data.name);
@@ -133,17 +134,15 @@ export default function Profile() {
         setReferralCode(response.data.referral_code);
 
         // Tree
-        const treeRes = await axios.get(
-          "http://localhost:5000/api/referrals/tree",
-          { headers: { Authorization: `Bearer ${token}` } },
-        );
+        const treeRes = await axios.get(`${API_URL}/api/referrals/tree`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setReferralTree(normalizeNode(treeRes.data));
 
         // Earnings
-        const earningsRes = await axios.get(
-          "http://localhost:5000/api/rewards/levels",
-          { headers: { Authorization: `Bearer ${token}` } },
-        );
+        const earningsRes = await axios.get(`${API_URL}/api/rewards/levels`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setLevelEarnings(earningsRes.data.levels);
         setTotalEarnings(earningsRes.data.total);
       } catch (err: any) {

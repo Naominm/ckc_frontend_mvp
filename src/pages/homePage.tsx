@@ -17,9 +17,9 @@ export default function HomePage() {
   useEffect(() => {
     const fetchTopUsers = async () => {
       try {
-        const { data } = await axios.get<TopUser[]>(
-          "http://localhost:5000/api/top-users",
-        );
+        const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+        const { data } = await axios.get<TopUser[]>(`${API_URL}/api/top-users`);
         setTopUsers(data);
       } catch (err) {
         console.error("Failed to fetch top users:", err);

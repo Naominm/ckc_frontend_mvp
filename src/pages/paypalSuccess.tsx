@@ -32,8 +32,10 @@ export default function PayPalSuccess() {
           return;
         }
 
+        const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
         const res = await axios.post(
-          "http://localhost:5000/api/order/capture",
+          `${API_URL}/api/order/capture`,
           { paypalOrderId },
           { headers: { Authorization: `Bearer ${token}` } },
         );

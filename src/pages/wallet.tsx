@@ -17,7 +17,12 @@ const Wallet: React.FC = () => {
   useEffect(() => {
     const fetchWallet = async () => {
       try {
-        const { data } = await axios.get("/api/wallet");
+        const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+        const token = localStorage.getItem("token");
+
+        const { data } = await axios.get(`${API_URL}/api/wallet`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setWallet(data.wallet || []);
         setBalance(data.balance || 0);
       } catch (err) {

@@ -37,7 +37,9 @@ const Signup: React.FC<SignupProps> = ({ onSwitchToLogin }) => {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:5000/auth/signup", {
+      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
+      const response = await axios.post(`${API_URL}/auth/signup`, {
         name,
         email,
         nickname,
