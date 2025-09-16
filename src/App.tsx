@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import AuthPage from "./components/auth";
 import CreateOrder from "./pages/createOrder";
 import Profile from "./pages/profile";
