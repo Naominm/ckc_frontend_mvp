@@ -79,12 +79,6 @@ export default function PayPalSuccess() {
         backgroundColor: "var[--primary-color]",
       }}
     >
-      {/* {message && (
-        <Alert severity={captureDetails ? "success" : "error"} sx={{ mb: 2 }}>
-          {message}
-        </Alert>
-      )} */}
-
       {captureDetails && (
         <>
           {captureDetails.isFirstPayment ? (
@@ -156,6 +150,81 @@ export default function PayPalSuccess() {
                 <Button variant="outlined">View Order details</Button>
                 <Button variant="outlined">Home page</Button>
               </Box>
+              <Typography variant="subtitle2" sx={{ mt: 5 }}>
+                Bonuses distributed to your uplines (when you buy)
+              </Typography>
+              {Array.isArray(captureDetails.referralChain) &&
+              captureDetails.referralChain.length > 0 ? (
+                <Table
+                  size="small"
+                  style={{
+                    backgroundColor: "var(--table-bg)",
+                    width: "50%",
+                    marginTop: 2,
+                    borderRadius: "10px",
+                  }}
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Upline</TableCell>
+                      <TableCell>Level</TableCell>
+                      <TableCell align="right">Bonus ($)</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {captureDetails.referralChain.map(
+                      (ref: any, idx: number) => (
+                        <TableRow key={idx}>
+                          <TableCell>{ref.name}</TableCell>
+                          <TableCell>{ref.level}</TableCell>
+                          <TableCell align="right">
+                            {ref.bonus.toFixed(2)}
+                          </TableCell>
+                        </TableRow>
+                      ),
+                    )}
+                  </TableBody>
+                </Table>
+              ) : (
+                <Typography>No bonuses distributed</Typography>
+              )}
+
+              <Typography variant="subtitle2" sx={{ mt: 5 }}>
+                Credit Earned from your referrals
+              </Typography>
+              {Array.isArray(captureDetails.myRewardsFromChildren) &&
+              captureDetails.myRewardsFromChildren.length > 0 ? (
+                <Table
+                  size="small"
+                  style={{
+                    backgroundColor: "var(--table-bg)",
+                    width: "50%",
+                    marginTop: 2,
+                    borderRadius: "10px",
+                  }}
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Referral</TableCell>
+                      <TableCell>Level</TableCell>
+                      <TableCell align="right">Rate</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {captureDetails.myRewardsFromChildren.map(
+                      (ref: any, idx: number) => (
+                        <TableRow key={idx}>
+                          <TableCell>{ref.childName}</TableCell>
+                          <TableCell>{ref.level}</TableCell>
+                          <TableCell align="right">{ref.rate}</TableCell>
+                        </TableRow>
+                      ),
+                    )}
+                  </TableBody>
+                </Table>
+              ) : (
+                <Typography>No referral bonuses</Typography>
+              )}
             </Box>
           ) : (
             // Normal Payment Success Page
