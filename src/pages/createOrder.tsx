@@ -5,11 +5,11 @@ import axios from "axios";
 export default function CreateOrder() {
   const [price, setPrice] = useState(0);
   const [quantity, SetQuantity] = useState(1);
-  const [orderId, setOrderId] = useState<number | null>(null);
+  const [, setOrderId] = useState<number | null>(null);
   const [paypalOrderId, setPaypalOrderId] = useState<string | null>(null);
   const [approvalUrl, setApprovalUrl] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
-  const [captureDetails, setCaptureDetails] = useState<any | null>(null);
+  const [, setCaptureDetails] = useState<any | null>(null);
 
   const token = localStorage.getItem("token");
   const handleCreateOrder = async () => {
@@ -32,25 +32,25 @@ export default function CreateOrder() {
       setMessage("Failed to create an order. Try again");
     }
   };
-  const handleCaptureOrder = async () => {
-    if (!paypalOrderId) {
-      setMessage("No PayPal order to capture");
-      return;
-    }
+  // const handleCaptureOrder = async () => {
+  //   if (!paypalOrderId) {
+  //     setMessage("No PayPal order to capture");
+  //     return;
+  //   }
 
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/api/order/capture",
-        { paypalOrderId },
-        { headers: { Authorization: `Bearer ${token}` } },
-      );
-      setCaptureDetails(response.data);
-      setMessage("Order captured successfully ✅");
-      console.log("Capture response:", response.data);
-    } catch (err: any) {
-      setMessage("Failed to capture order. Try again");
-    }
-  };
+  //   try {
+  //     const response = await axios.post(
+  //       "http://localhost:5000/api/order/capture",
+  //       { paypalOrderId },
+  //       { headers: { Authorization: `Bearer ${token}` } },
+  //     );
+  //     setCaptureDetails(response.data);
+  //     setMessage("Order captured successfully ✅");
+  //     console.log("Capture response:", response.data);
+  //   } catch (err: any) {
+  //     setMessage("Failed to capture order. Try again");
+  //   }
+  // };
 
   return (
     <Paper sx={{ p: 3, maxWidth: 400, mx: "auto", mt: 5 }}>

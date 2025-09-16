@@ -100,14 +100,14 @@ function ReferralTree({ node }: { node: ReferralNode }) {
 
 export default function Profile() {
   const [referralCode, setReferralCode] = useState<string | null>(null);
-  const [name, setName] = useState<string | null>(null);
-  const [email, setEmail] = useState<string | null>(null);
+  const [, setName] = useState<string | null>(null);
+  const [ ,setEmail] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const [referralTree, setReferralTree] = useState<ReferralNode | null>(null);
 
   const [levelEarnings, setLevelEarnings] = useState<LevelEarning[]>([]);
   const [totalEarnings, setTotalEarnings] = useState<number>(0);
-  const [totalSentence, setTotalSentence] = useState<string>("");
+  const [totalSentence,] = useState<string>("");
 
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
