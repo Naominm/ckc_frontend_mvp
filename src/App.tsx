@@ -11,7 +11,7 @@ function AppContent() {
   const location = useLocation();
 
   // Hide NavBar on /auth
-  const hideNav = location.pathname === "/auth";
+  const hideNav = location.pathname === "/";
 
   return (
     <>
