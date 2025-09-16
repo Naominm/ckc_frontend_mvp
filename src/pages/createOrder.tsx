@@ -6,10 +6,10 @@ export default function CreateOrder() {
   const [price, setPrice] = useState(0);
   const [quantity, SetQuantity] = useState(1);
   const [, setOrderId] = useState<number | null>(null);
-  const [paypalOrderId, setPaypalOrderId] = useState<string | null>(null);
+  const [, setPaypalOrderId] = useState<string | null>(null);
   const [approvalUrl, setApprovalUrl] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
-  const [, setCaptureDetails] = useState<any | null>(null);
+  // const [, setCaptureDetails] = useState<any | null>(null);
 
   const token = localStorage.getItem("token");
   const handleCreateOrder = async () => {

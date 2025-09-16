@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function SuccessCard() {
-  const [captureDetails, setCaptureDetails] = useState<any | null>(null);
+  const [, setCaptureDetails] = useState<any | null>(null);
   useEffect(() => {
     const capturePayment = async () => {
       try {
